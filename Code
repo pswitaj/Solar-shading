@@ -1,0 +1,56 @@
+
+#include <Servo.h>
+
+Servo one;  // create a servo object
+Servo two;
+Servo three;
+Servo four;
+int potVal;
+int potPin = A0;
+int angle;
+const int photo=A2;
+int value;
+const int button = 12;
+int pos;
+
+void setup() {
+  one.attach(3);
+  two.attach(5);
+  three.attach(9);
+  four.attach(10);
+  Serial.begin(9600); 
+  pinMode(button, INPUT);
+}
+void loop() {
+  analogRead(button);
+  if(button==HIGH) {
+  for (pos =10; pos <= 170; pos += 1) { 
+  one.write(pos);
+  two.write(pos);
+  three.write(pos);
+  four.write(pos);
+    delay(30);                       
+  }
+  for (pos = 170; pos >=10; pos -= 1) { 
+  one.write(pos);
+  two.write(pos);
+  three.write(pos);
+  four.write(pos);
+  delay(30);                       
+  }}
+else{
+  value=analogRead(photo);
+  potVal = analogRead(potPin); 
+  Serial.print("potVal: ");
+  Serial.print(potVal);
+  angle = map(potVal, 0, 1023, 0, 179);
+  Serial.print(", angle: ");
+  Serial.println(angle);
+  Serial.println(value);
+  one.write(angle);
+  two.write(angle);
+  three.write(angle);
+  four.write(angle);
+  delay(250);
+}
+}
